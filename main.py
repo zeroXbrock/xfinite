@@ -1,5 +1,6 @@
 from lib import *
 
+
 def main():
     result = testSpeed()
     tweet = formatResult(result)

@@ -11,6 +11,7 @@ api = twitter.Api(
 expectDown = float(settings.EXPECTED_DOWN_MBPS)
 expectUp = float(settings.EXPECTED_UP_MBPS)
 
+
 # returns string-formatted percent delta (+X or -X)
 def deltaStr(percentLoss):
     percentLoss *= -1.0
@@ -18,6 +19,7 @@ def deltaStr(percentLoss):
         return str(percentLoss)
     else:
         return "+" + str(percentLoss)
+
 
 # returns tweet-formatted result
 def formatResult(result):
@@ -43,6 +45,8 @@ def formatResult(result):
     Ping: {6}
     IP: {7}""".format(expectDown, expectUp, download, percentLossDown, upload, percentLossUp, ping, ip)
 
+
+# runs speed test, returns dictionary result
 def testSpeed():
     print("testing speed...")
     s = speedtest.Speedtest()
@@ -54,6 +58,7 @@ def testSpeed():
     return s.results.dict()
 
 
+# posts a tweet given text (TODO: and an optional image)
 def postTweet(text):
     print("posting tweet...")
     result = api.PostUpdate(text)
