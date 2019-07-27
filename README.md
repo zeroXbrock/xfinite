@@ -11,4 +11,10 @@ This thing does a speed test and tweets the result @Comcast. To use it, you'll n
 ./run.sh
 ```
 
+Upcoming Changes:
+
+* Daemonize (post every hour|day|week|...)
+* Thresholds (don't tweet if within X% of advertised speed)
+* Choose arguments (up & down only, etc.)
+
 🖕@Comcast
