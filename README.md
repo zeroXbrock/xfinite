@@ -16,5 +16,6 @@ Upcoming Changes:
 * Daemonize (post every hour|day|week|...)
 * Thresholds (don't tweet if within X% of advertised speed)
 * Choose arguments (up & down only, etc.)
+* Determine YOUR provider and tweet @ appropriately
 
 🖕@Comcast
