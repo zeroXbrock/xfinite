@@ -11,6 +11,8 @@ This thing does a speed test and tweets the result @Comcast. To use it, you'll n
 ./run.sh
 ```
 
+If you're actually going to run this, don't be a dick. Run it from a computer with a dedicated line to your router/modem because WiFi *does* slow it down.
+
 Upcoming Changes:
 
 * Daemonize (post every hour|day|week|...)
