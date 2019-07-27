@@ -14,4 +14,3 @@ if [ "$?" != "0" ]; then
 fi
 
 pip install -r requirements.txt &>/dev/null
-python main.py
