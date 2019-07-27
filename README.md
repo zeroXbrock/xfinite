@@ -1,5 +1,4 @@
 # xfinite
-Holding Comcast accountable.
 
 This thing does a speed test and tweets the result. To use it, you'll need to make a Twitter app and get your own access keys. See [Twitter Developers](https://developer.twitter.com/en/docs/basics/apps/overview.html).
 
