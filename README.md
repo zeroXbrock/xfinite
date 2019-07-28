@@ -20,5 +20,6 @@ Upcoming Changes:
 * Choose arguments (up & down only, etc.)
 * Determine YOUR provider and tweet @ appropriately
 * Post speedtest image w/ tweet
+* Provide server-side reporting on clients' behalf (so n00bs can use it)
 
 🖕@Comcast
