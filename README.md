@@ -6,6 +6,7 @@ This thing does a speed test and tweets the result @Comcast. To use it, you'll n
 
 0. Make a .env file.
 ```sh
+cd src/
 cp .env.example .env
 ```
 

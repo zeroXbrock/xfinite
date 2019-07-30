@@ -1,0 +1,5 @@
+# run xfinite every 30 minutes
+0,30 * * * * python /xfinite/main.py > /proc/$(cat /var/run/crond.pid)/fd/1 2>&1
+
+# or run it every minute
+#* * * * * python /xfinite/main.py > /proc/$(cat /var/run/crond.pid)/fd/1 2>&1
