@@ -10,6 +10,7 @@ api = twitter.Api(
 )
 expectDown = float(settings.EXPECTED_DOWN_MBPS)
 expectUp = float(settings.EXPECTED_UP_MBPS)
+DEBUG = settings.DEBUG
 
 isps = {
     "Comcast Cable": {
