@@ -13,9 +13,9 @@
 #   ./run-daemon.sh -f
 
 if [ "$1" == "-f" ]; then
-    docker run -it --name xfinite xfinite-daemon
+    docker run -it --name xfinite --net host xfinite-daemon
     docker stop xfinite
     docker rm xfinite
 else
-    docker run -d --name xfinite xfinite-daemon
+    docker run -d --name xfinite --net host xfinite-daemon
 fi
