@@ -26,7 +26,7 @@ Upcoming Changes:
 * Thresholds (don't tweet if within X% of advertised speed)
 * Choose arguments (up & down only, etc.)
 * Determine YOUR provider and tweet @ appropriately
-* Post speedtest image w/ tweet
+* ✅ Post speedtest image w/ tweet
 * Provide server-side reporting on clients' behalf (so n00bs can use it)
 
 🖕@Comcast
