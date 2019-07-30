@@ -18,6 +18,7 @@ cp .env.example .env
 ./run.sh
 ```
 
+## Alternative: Run xfinite Daemon
 To run a daemonized version that reports every half hour, [install docker](https://www.google.com/search?q=install+docker&rlz=1C5CHFA_enUS754US754&oq=install+docker), and run:
 ```sh
 # assuming docker is installed and your terminal is still in src/
@@ -37,9 +38,15 @@ cd ..
 ./run-daemon.sh -f
 ```
 
+## Edit crontab
+The crontab file (which dictates the schedule for xfinite to run) is here: `cron/xfinite-cron`. Feel free to change it as you see fit. I use [crontab.guru](https://crontab.guru/) to check my cron expressions. 
+
+Remember to re-run `./build.sh` after changing the crontab file.
+
+## Closing remarks
 If you're actually going to run this, don't be a dick. Run it from a computer with a dedicated line to your router/modem because WiFi *does* slow it down.
 
-Upcoming Changes:
+## Upcoming Changes
 
 * ✅ Daemonize (post every hour|day|week|...)
 * Thresholds (don't tweet if within X% of advertised speed)
