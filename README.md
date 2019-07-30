@@ -4,24 +4,53 @@ This thing does a speed test and tweets the result @Comcast. To use it, you'll n
 
 ## Get Started
 
-0. Make a .env file.
+1. Make a .env file.
 ```sh
-cp .env.example .env
+cp src/.env.example src/.env
 ```
 
-1. Create a Twitter App and replace variables in `.env` with your own keys from Twitter.
+2. Create a Twitter App and replace variables in `.env` with your own keys from Twitter.
 
-2. Install dependencies and run...
+## Run script once
+Install dependencies and run...
 ```sh
+cd src/
 ./start.sh
 ./run.sh
 ```
 
+## Or... Run xfinite Daemon
+To run a daemonized version that reports every half hour, [install docker](https://www.google.com/search?q=install+docker&rlz=1C5CHFA_enUS754US754&oq=install+docker), and run:
+(you still need to create the .env file but you can skip everything else)
+```sh
+# assuming docker is installed and you're in the project root
+
+# required: build daemon image
+./build-daemon.sh
+
+# option 1: run in background
+./run-daemon.sh
+
+# to stop daemon (background only):
+./stop-daemon.sh
+
+# OR...
+
+# option 2: run in foreground (good for debugging; automatically stops on CTRL-C)
+./run-daemon.sh -f
+```
+
+## Edit crontab
+The crontab file (which dictates the schedule for xfinite to run) is here: `cron/xfinite-cron`. Feel free to change it as you see fit. I use [crontab.guru](https://crontab.guru/) to check my cron expressions. 
+
+Remember to re-run `./build-daemon.sh` after changing the crontab file.
+
+## Closing remarks
 If you're actually going to run this, don't be a dick. Run it from a computer with a dedicated line to your router/modem because WiFi *does* slow it down.
 
-Upcoming Changes:
+## Upcoming Changes
 
-* Daemonize (post every hour|day|week|...)
+* ✅ Daemonize (post every hour|day|week|...)
 * Thresholds (don't tweet if within X% of advertised speed)
 * Choose arguments (up & down only, etc.)
 * Determine YOUR provider and tweet @ appropriately
