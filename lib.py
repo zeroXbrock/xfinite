@@ -21,7 +21,7 @@ def deltaStr(percentLoss):
         return "+" + str(percentLoss)
 
 
-# returns tweet-formatted result
+# returns tweet-formatted result as tuple (text, image)
 def formatResult(result):
     dl = round(result['download'] / 1000000.0, 1)
     ul = round(result['upload'] / 1000000.0, 1)
@@ -39,11 +39,13 @@ def formatResult(result):
     percentLossDown = deltaStr((lossDown / expectDown) * 100)
     percentLossUp = deltaStr((lossUp / expectUp) * 100)
 
-    return """Paid for {0} down, {1} up.
+    text = """Paid for {0} down, {1} up.
     Down: {2} ({3}%)
     Up: {4} ({5}%)
     Ping: {6}
     IP: {7}""".format(expectDown, expectUp, download, percentLossDown, upload, percentLossUp, ping, ip)
+
+    return (text, img)
 
 
 # runs speed test, returns dictionary result
@@ -58,8 +60,8 @@ def testSpeed():
     return s.results.dict()
 
 
-# posts a tweet given text (TODO: and an optional image)
-def postTweet(text):
+# posts a tweet given text and an image URL
+def postTweet(text, image=None):
     print("posting tweet...")
-    result = api.PostUpdate(text)
+    result = api.PostUpdate(text, image)
     print("tweet result: " + str(result))
