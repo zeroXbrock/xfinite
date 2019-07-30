@@ -11,7 +11,7 @@ cp src/.env.example src/.env
 
 2. Create a Twitter App and replace variables in `.env` with your own keys from Twitter.
 
-## Run script once
+### Run script once
 Install dependencies and run...
 ```sh
 cd src/
@@ -19,9 +19,8 @@ cd src/
 ./run.sh
 ```
 
-## Or... Run xfinite Daemon
+### Or... Run xfinite Daemon
 To run a daemonized version that reports every half hour, [install docker](https://www.google.com/search?q=install+docker&rlz=1C5CHFA_enUS754US754&oq=install+docker), and run:
-(you still need to create the .env file but you can skip everything else)
 ```sh
 # assuming docker is installed and you're in the project root
 
