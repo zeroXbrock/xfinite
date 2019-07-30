@@ -4,22 +4,24 @@ This thing does a speed test and tweets the result @Comcast. To use it, you'll n
 
 ## Get Started
 
-0. Make a .env file.
+1. Make a .env file.
 ```sh
 cp src/.env.example src/.env
 ```
 
-1. Create a Twitter App and replace variables in `.env` with your own keys from Twitter.
+2. Create a Twitter App and replace variables in `.env` with your own keys from Twitter.
 
-2. Install dependencies and run...
+## Run script once
+Install dependencies and run...
 ```sh
 cd src/
 ./start.sh
 ./run.sh
 ```
 
-## Alternative: Run xfinite Daemon
+## Or... Run xfinite Daemon
 To run a daemonized version that reports every half hour, [install docker](https://www.google.com/search?q=install+docker&rlz=1C5CHFA_enUS754US754&oq=install+docker), and run:
+(you still need to create the .env file but you can skip everything else)
 ```sh
 # assuming docker is installed and you're in the project root
 
