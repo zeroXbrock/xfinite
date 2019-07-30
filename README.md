@@ -18,11 +18,30 @@ cp .env.example .env
 ./run.sh
 ```
 
+To run a daemonized version that reports every half hour, [install docker](https://www.google.com/search?q=install+docker&rlz=1C5CHFA_enUS754US754&oq=install+docker), and run:
+```sh
+# assuming docker is installed and your terminal is still in src/
+cd ..
+# required: build daemon image
+./build-daemon.sh
+
+# option 1: run in background
+./run-daemon.sh
+
+# to stop daemon (background only):
+./stop-daemon.sh
+
+# OR...
+
+# option 2: run in foreground (good for debugging; automatically stops on CTRL-C)
+./run-daemon.sh -f
+```
+
 If you're actually going to run this, don't be a dick. Run it from a computer with a dedicated line to your router/modem because WiFi *does* slow it down.
 
 Upcoming Changes:
 
-* Daemonize (post every hour|day|week|...)
+* ✅ Daemonize (post every hour|day|week|...)
 * Thresholds (don't tweet if within X% of advertised speed)
 * Choose arguments (up & down only, etc.)
 * Determine YOUR provider and tweet @ appropriately
