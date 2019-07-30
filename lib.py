@@ -63,3 +63,5 @@ def postTweet(text):
     print("posting tweet...")
     result = api.PostUpdate(text)
     print("tweet result: " + str(result))
+    # TODO: use more of Twitter's magic
+    # https://python-twitter.readthedocs.io/en/latest/twitter.html#twitter.api.Api.PostUpdate
