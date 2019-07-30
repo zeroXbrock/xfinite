@@ -11,6 +11,16 @@ api = twitter.Api(
 expectDown = float(settings.EXPECTED_DOWN_MBPS)
 expectUp = float(settings.EXPECTED_UP_MBPS)
 
+isps = {
+    "Comcast Cable": {
+        "name": "Xfinity",
+        "handles": [
+            "@Xfinity",
+            "@ComcastCares"
+        ]
+    }
+}
+
 
 # returns string-formatted percent delta (+X or -X)
 def deltaStr(percentLoss):
@@ -32,6 +42,7 @@ def formatResult(result):
     ping = str(pg) + " ms"
     ip = result['client']['ip']
     img = result['share']
+    isp = isps[result['client']['isp']]
 
     lossDown = float(expectDown) - dl
     lossUp = float(expectUp) - ul
@@ -39,11 +50,12 @@ def formatResult(result):
     percentLossDown = deltaStr((lossDown / expectDown) * 100)
     percentLossUp = deltaStr((lossUp / expectUp) * 100)
 
-    text = """Paid for {0} down, {1} up.
-    Down: {2} ({3}%)
-    Up: {4} ({5}%)
-    Ping: {6}
-    IP: {7}""".format(expectDown, expectUp, download, percentLossDown, upload, percentLossUp, ping, ip)
+    text = """Paid for {0} down, {1} up from {8}.
+Down: {2} ({3}%)
+Up: {4} ({5}%)
+Ping: {6}
+IP: {7}
+{9}""".format(expectDown, expectUp, download, percentLossDown, upload, percentLossUp, ping, ip, isp['handles'][0], isp['handles'][1])
 
     return (text, img)
 
