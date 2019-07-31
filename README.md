@@ -55,5 +55,3 @@ If you're actually going to run this, don't be a dick. Run it from a computer wi
 * Determine YOUR provider and tweet @ appropriately
 * ✅ Post speedtest image w/ tweet
 * Provide server-side reporting on clients' behalf (so n00bs can use it)
-
-🖕@Comcast
