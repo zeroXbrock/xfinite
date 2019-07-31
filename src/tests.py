@@ -15,10 +15,14 @@ mock_result_85_down_str = '{"dl": 84.6, "img": "http^^^//www.speedtest.net/resul
 mock_result_85_down = json_to_obj(mock_result_85_down_str)
 
 class TestHelpers(unittest.TestCase):
-    def it_should_tweet_past_threshold(self):
+    def runTest(self):
+        print "this is some bullshit"
         self.assertTrue(helpers.shouldTweet(mock_result_85_down))
 
-if __name__ == '__tests__':
-    # suite = unittest.TestLoader().loadTestsFromTestCase(TestLib)
+
+if __name__ == '__main__':
+    print "hi"
+    # suite = unittest.TestLoader().loadTestsFromTestCase(TestHelpers)
     # unittest.TextTestRunner(verbosity=2).run(suite)
-    unittest.main(TestHelpers)
+    unittest.main()
+    
