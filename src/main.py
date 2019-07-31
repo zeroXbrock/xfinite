@@ -1,9 +1,10 @@
 from lib import *
+from helpers import *
 
 SPEED_OK = 1
 
 def main():
-    result = testSpeed()
+    result = normalizeResults(testSpeed())
     if (not shouldTweet(result)):
         exit(SPEED_OK)
     tweet = formatResult(result)

@@ -1,6 +1,7 @@
 import speedtest
 import settings
 import twitter
+from helpers import *
 
 api = twitter.Api(
     consumer_key=settings.API_KEY,
@@ -8,19 +9,8 @@ api = twitter.Api(
     access_token_key=settings.ACCESS_TOKEN,
     access_token_secret=settings.ACCESS_SECRET
 )
-expectDown = float(settings.EXPECTED_DOWN_MBPS)
-expectUp = float(settings.EXPECTED_UP_MBPS)
-DEBUG = settings.DEBUG
 
-isps = {
-    "Comcast Cable": {
-        "name": "Xfinity",
-        "handles": [
-            "@Xfinity",
-            "@ComcastCares"
-        ]
-    }
-}
+DEBUG = settings.DEBUG
 
 class Result:
     def __init__(self, t):
@@ -36,15 +26,6 @@ class Result:
         self.pg = pg
         self.ul = ul
 
-# returns string-formatted percent delta (+X or -X)
-def deltaStr(percentLoss):
-    percentLoss *= -1.0
-    if (percentLoss < 0):
-        return str(percentLoss)
-    else:
-        return "+" + str(percentLoss)
-
-
 def normalizeResults(result):
     dl = round(result['download'] / 1000000.0, 1)
     ul = round(result['upload'] / 1000000.0, 1)
@@ -59,34 +40,6 @@ def normalizeResults(result):
 
     return Result((dl, ul, pg, lossDown, percentLossDown, lossUp, percentLossUp, ip, img, isp))
 
-# returns tweet-formatted result as tuple (text, image)
-def formatResult(result):
-    result = normalizeResults(result)
-
-    download = str(result.dl) + " Mbps"
-    upload = str(result.ul) + " Mbps"
-    ping = str(result.pg) + " ms"
-    
-    text = """Paid for {0} down, {1} up from {8}.
-Down: {2} ({3}%)
-Up: {4} ({5}%)
-Ping: {6}
-IP: {7}
-{9}""".format(expectDown, 
-        expectUp, 
-        download, 
-        deltaStr(result.percentLossDown), 
-        upload, 
-        deltaStr(result.percentLossUp), 
-        ping, 
-        result.ip, 
-        result.isp['handles'][0], 
-        result.isp['handles'][1]
-    )
-
-    return (text, result.img)
-
-
 # runs speed test, returns dictionary result
 def testSpeed():
     print("testing speed...")
@@ -97,12 +50,6 @@ def testSpeed():
     s.results.share()
 
     return s.results.dict()
-
-def shouldTweet(result):
-    result = normalizeResults(result)
-    if (result.percentLossDown > float(settings.THRESHOLD_PERCENT_LOSS)):
-        return True
-    return False
 
 # posts a tweet given text and an image URL
 def postTweet(text, image=None):
