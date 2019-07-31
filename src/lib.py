@@ -22,6 +22,19 @@ isps = {
     }
 }
 
+class Result:
+    def __init__(self, t):
+        (dl, ul, pg, lossDown, percentLossDown, lossUp, percentLossUp, ip, img, isp) = t
+        self.dl = dl
+        self.img = img
+        self.ip = ip
+        self.isp = isp
+        self.lossDown = lossDown
+        self.lossUp = lossUp
+        self.percentLossDown = percentLossDown
+        self.percentLossUp = percentLossUp
+        self.pg = pg
+        self.ul = ul
 
 # returns string-formatted percent delta (+X or -X)
 def deltaStr(percentLoss):
@@ -32,33 +45,46 @@ def deltaStr(percentLoss):
         return "+" + str(percentLoss)
 
 
-# returns tweet-formatted result as tuple (text, image)
-def formatResult(result):
+def normalizeResults(result):
     dl = round(result['download'] / 1000000.0, 1)
     ul = round(result['upload'] / 1000000.0, 1)
     pg = round(result['ping'], 1)
-
-    download = str(dl) + " Mbps"
-    upload = str(ul) + " Mbps"
-    ping = str(pg) + " ms"
+    lossDown = expectDown - dl
+    lossUp = expectUp - ul
     ip = result['client']['ip']
     img = result['share']
     isp = isps[result['client']['isp']]
+    percentLossDown = (lossDown / expectDown) * 100
+    percentLossUp = (lossUp / expectUp) * 100
 
-    lossDown = float(expectDown) - dl
-    lossUp = float(expectUp) - ul
+    return Result((dl, ul, pg, lossDown, percentLossDown, lossUp, percentLossUp, ip, img, isp))
 
-    percentLossDown = deltaStr((lossDown / expectDown) * 100)
-    percentLossUp = deltaStr((lossUp / expectUp) * 100)
+# returns tweet-formatted result as tuple (text, image)
+def formatResult(result):
+    result = normalizeResults(result)
 
+    download = str(result.dl) + " Mbps"
+    upload = str(result.ul) + " Mbps"
+    ping = str(result.pg) + " ms"
+    
     text = """Paid for {0} down, {1} up from {8}.
 Down: {2} ({3}%)
 Up: {4} ({5}%)
 Ping: {6}
 IP: {7}
-{9}""".format(expectDown, expectUp, download, percentLossDown, upload, percentLossUp, ping, ip, isp['handles'][0], isp['handles'][1])
+{9}""".format(expectDown, 
+        expectUp, 
+        download, 
+        deltaStr(result.percentLossDown), 
+        upload, 
+        deltaStr(result.percentLossUp), 
+        ping, 
+        result.ip, 
+        result.isp['handles'][0], 
+        result.isp['handles'][1]
+    )
 
-    return (text, img)
+    return (text, result.img)
 
 
 # runs speed test, returns dictionary result
@@ -72,6 +98,11 @@ def testSpeed():
 
     return s.results.dict()
 
+def shouldTweet(result):
+    result = normalizeResults(result)
+    if (result.percentLossDown > float(settings.THRESHOLD_PERCENT_LOSS)):
+        return True
+    return False
 
 # posts a tweet given text and an image URL
 def postTweet(text, image=None):

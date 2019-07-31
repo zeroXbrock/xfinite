@@ -1,8 +1,11 @@
 from lib import *
 
+SPEED_OK = 1
 
 def main():
     result = testSpeed()
+    if (not shouldTweet(result)):
+        exit(SPEED_OK)
     tweet = formatResult(result)
 
     print tweet[0]
