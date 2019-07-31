@@ -1,14 +1,23 @@
 from lib import *
 
+SPEED_OK = 1
 
 def main():
     result = testSpeed()
+    if (not shouldTweet(result)):
+        exit(SPEED_OK)
     tweet = formatResult(result)
 
-    print tweet
-    if (len(tweet) <= 140):
-        postTweet(*tweet)
+    print tweet[0]
+    if (DEBUG):
+        print len(tweet[0])
+
+    if (len(tweet[0]) <= 140):
+        if (not DEBUG):
+            postTweet(*tweet)
         print("posted tweet.")
+    else:
+        print "tweet too long: " + str(len(tweet[0]))
 
 
 if (__name__ == "__main__"):
